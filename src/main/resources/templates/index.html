@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <title>Sherlock</title>
+  <meta charset="UTF-8" />
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+  <link th:rel="stylesheet" th:href="@{/css/style.css} " />
+</head>
+<body>
+<header>
+  <nav class="navbar navbar-dark bg-teal">
+    <a class="navbar-brand" th:href="@{/index}">
+      Sherlock
+    </a>
+
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" style="min-width: 27rem" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+    <input class="btn btn-outline-light my-2 my-sm-0" type="button" value="Upload" th:onClick="'location.href=\'' + @{/index} + '\';'">
+  </nav>
+</header>
+<!-- Cabeçalho - Fim -->
+
+<div layout:fragment="content">
+  <h1 class="display-4">Upload de arquivo de media</h1>
+  <hr />
+
+  <div class="alert alert-danger" role="alert" th:if="${message != null}">
+    <strong>Erro:</strong>
+    <span th:text="${message}"></span>
+  </div>
+
+  <form method="POST" th:action="@{/upload-media-file}" enctype="multipart/form-data">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+      </div>
+      <div class="custom-file">
+        <input type="file" name="file" id="file" accept=".mp3" class="custom-file-input"
+               aria-describedby="inputGroupFileAddon01" />
+        <label class="custom-file-label" for="file">Selecione um arquivo de mídia...</label>
+      </div>
+      <input type="submit" class="btn btn-success" value="Confirmar" />
+    </div>
+  </form>
+
+
+</div>
+<!-- Rodapé - Início -->
+<br /><br />
+
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+<script>
+  $('#file').on('change',function(){
+    var fileName = $(this).val();
+    $(this).next('.custom-file-label').html(fileName);
+  });
+</script>
+</body>
+</html>
